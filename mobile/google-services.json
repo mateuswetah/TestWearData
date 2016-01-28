@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "default-demo-app-1ee0b",
+    "project_number": "387902600884",
+    "name": "Default Demo App"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387902600884:android:88d44827f22d3c4c",
+        "client_id": "android:com.example.mateus.testweardata",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.mateus.testweardata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387902600884-p8u35bjhmljmv6qt7fsk7q439sg9fupr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mateus.testweardata",
+            "certificate_hash": "70433C6FD8E6A441975A58A799E6B97DC8AE8E8D"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

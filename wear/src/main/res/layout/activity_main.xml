@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".MainActivity" tools:deviceIds="wear_round"
+    android:background="@color/white"
+    android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CardTitle"
+            android:text="Accel X"
+            android:id="@+id/LabelAccelX"
+            android:layout_column="0"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="false"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="40dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ValueAccelX"
+            android:textSize="@dimen/diag_button_bottom_padding"
+            android:text="Nenhum dado"
+            android:layout_column="1"
+            android:layout_gravity="right"
+            android:textAppearance="@style/CardText"
+            android:layout_alignBaseline="@+id/LabelAccelX"
+            android:layout_alignBottom="@+id/LabelAccelX"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="12dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CardTitle"
+            android:text="Accel Z"
+            android:id="@+id/LabelAccelZ"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/LabelAccelY"
+            android:layout_alignParentStart="false"
+            android:layout_column="0"
+            android:layout_marginLeft="40dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CardTitle"
+            android:text="Accel Y"
+            android:id="@+id/LabelAccelY"
+            android:layout_marginTop="10dp"
+            android:layout_column="0"
+            android:layout_gravity="bottom|center|left"
+            android:layout_below="@+id/LabelAccelX"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="40dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ValueAccelY"
+            android:textSize="@dimen/diag_button_bottom_padding"
+            android:text="Nenhum dado"
+            android:layout_column="1"
+            android:layout_gravity="right"
+            android:layout_alignTop="@+id/LabelAccelY"
+            android:layout_alignStart="@+id/ValueAccelZ"
+            android:textAppearance="@style/CardText"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ValueAccelZ"
+            android:textSize="@dimen/diag_button_bottom_padding"
+            android:text="Nenhum dado"
+            android:layout_column="1"
+            android:layout_alignTop="@+id/LabelAccelZ"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="right"
+            android:textAppearance="@style/CardText"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CardTitle"
+            android:text="Gyro X"
+            android:id="@+id/LabelGyroX"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/ValueAccelZ"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="40dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CardTitle"
+            android:text="Gyro Y"
+            android:id="@+id/LabelGyroY"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/LabelGyroX"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="40dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/CardTitle"
+            android:text="Gyro Z"
+            android:id="@+id/LabelGyroZ"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/LabelGyroY"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="40dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nenhum dado"
+            android:id="@+id/ValueGyroX"
+            android:layout_alignTop="@+id/LabelGyroX"
+            android:layout_alignStart="@+id/ValueAccelZ"
+            android:textSize="@dimen/diag_button_bottom_padding"
+            android:layout_gravity="right"
+            android:textAppearance="@style/CardText"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nenhum dado"
+            android:id="@+id/ValueGyroY"
+            android:layout_alignBottom="@+id/LabelGyroY"
+            android:layout_alignStart="@+id/ValueGyroX"
+            android:textSize="@dimen/diag_button_bottom_padding"
+            android:layout_gravity="right"
+            android:textAppearance="@style/CardText"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nenhum dado"
+            android:id="@+id/ValueGyroZ"
+            android:layout_alignTop="@+id/LabelGyroZ"
+            android:layout_alignStart="@+id/ValueGyroY"
+            android:textSize="@dimen/diag_button_bottom_padding"
+            android:layout_gravity="right"
+            android:textAppearance="@style/CardText"
+            android:paddingLeft="10dp" />
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gravar"
+            android:id="@+id/ButtonRecord"
+            android:checked="false"
+            android:textOn="Gravando Movimento..."
+            android:textOff="Gravar Movimento"
+            android:textSize="@dimen/diag_button_bottom_padding"
+            android:layout_below="@+id/LabelGyroZ"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp" />
+
+        <!--<ImageButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/ButtonSpeak"-->
+            <!--android:src="@android:drawable/ic_btn_speak_now"-->
+            <!--style="@style/Widget.WearDiag.Button"-->
+            <!--android:layout_toEndOf="@+id/ValueAccelZ"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:layout_below="@+id/ValueAccelY" />-->
+
+</RelativeLayout>
+
+
+
+
