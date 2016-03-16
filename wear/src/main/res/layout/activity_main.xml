@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context=".MainActivity" tools:deviceIds="wear_round"
-    android:background="@color/white"
+    android:background="#a9b8b3"
     android:paddingRight="10dp">
 
         <TextView
@@ -17,7 +17,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="40dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:textColor="#171717" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,7 +47,8 @@
             android:layout_column="0"
             android:layout_marginLeft="40dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:textColor="#171717" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +63,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="40dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:textColor="#171717" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -100,7 +103,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="40dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:textColor="#171717" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,7 +117,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="40dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:textColor="#171717" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,7 +131,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="40dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:textColor="#171717" />
 
         <TextView
             android:layout_width="wrap_content"

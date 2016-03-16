@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with my own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Saving...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 try {
                     writeJSONtoFile(jsonMessage);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity{
         mTextView.setText(jsonMessage);
 
         recordName = (TextView) findViewById(R.id.recordNameInput);
-        recordName.setText("Nome do Arquivo");
+        recordName.setText("mov1_1.5s_");
     }
 
     @Override
@@ -152,13 +152,23 @@ public class MainActivity extends AppCompatActivity{
     public static class ListenerServiceFromWear extends WearableListenerService {
 
         private static final String WEARPATH = "/from-wear";
+        // UDP related
+        private UDP_Client aClientUDP;
+        private int SERVER_PORT = 25000;
 
         @Override
         public void onMessageReceived(MessageEvent messageEvent) {
             super.onMessageReceived(messageEvent);
+            Log.d("HEY", "I'm Here!");
+
+//            // Instantiate a new UDP Client
+            aClientUDP = new UDP_Client();
+            aClientUDP.setServer("192.168.0.107", SERVER_PORT);
 
             if (messageEvent.getPath().equals(WEARPATH)) {
                 jsonMessage = new String(messageEvent.getData());
+
+                aClientUDP.sendMessage(jsonMessage);
 
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("message", jsonMessage);
@@ -166,6 +176,16 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
 
             }
+        }
+
+        @Override
+        public void onPeerConnected(Node peer) {
+            super.onPeerConnected(peer);
+
+            String id = peer.getId();
+            String name = peer.getDisplayName();
+
+            Log.d("MOBILE", "Connected peer name & ID: " + name + "|" + id);
         }
 
     }

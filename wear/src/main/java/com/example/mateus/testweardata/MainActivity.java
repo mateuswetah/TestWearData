@@ -1,10 +1,13 @@
 package com.example.mateus.testweardata;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.ActionPage;
@@ -71,11 +76,10 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     private Node mNode;
     private GoogleApiClient mGoogleApiClient;
     private static final String WEAR_PATH = "/from-wear";
-//    // Timer
-//    Timer timer = new Timer();
-//    long current = 0;
-//    boolean checkTimer = false;
-//    TimerTask timerTask;
+    // UDP related
+    private UDP_Client aClientUDP;
+    private int SERVER_PORT = 25000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +96,26 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 //                .addOnConnectionFailedListener(this)
 //                .addApi(AppIndex.API).build();
 
+        int permissionCheck1 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE);
+        int permissionCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE);
+        int permissionCheck3 = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+
+        Log.d("ACCESS_WIFI_STATE", "" + (permissionCheck1 == PackageManager.PERMISSION_GRANTED));
+        Log.d("ACCESS_NETWORK_STATE", "" + (permissionCheck2 == PackageManager.PERMISSION_GRANTED));
+        Log.d("ACCESS_INTERNET", "" + (permissionCheck3 == PackageManager.PERMISSION_GRANTED));
+
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
 
+        mGoogleApiClient.connect();
+
+        // Instantiate a new UDP Client
+        aClientUDP = new UDP_Client();
+        aClientUDP.setServer("192.168.0.108", SERVER_PORT);
 
         // Associate the XML items for displaying the values
         ValueAccelX = (TextView) findViewById(R.id.ValueAccelX);
@@ -122,30 +140,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         jsonObject = new JSONObject();
         jsonAllAccel = new JSONArray();
         jsonAllGyro = new JSONArray();
-//
-//        timerTask = new TimerTask() {
-//            @Override
-//            public void run() {
-////                checkTimer = false;
-////
-////                //ButtonRecord.setChecked(false);
-////                //ButtonRecord.callOnClick();
-////
-////                try {
-////
-////                    jsonObject.put("Accel", jsonAllAccel);
-////                    jsonObject.put("Gyro", jsonAllGyro);
-////
-////                    //writeJSONtoFile(jsonObject);
-////                    sendMessage(jsonObject.toString(2));
-////
-////                    jsonObject = new JSONObject();
-////
-////                } catch (JSONException e) {
-////                    e.printStackTrace();
-////                }
-//            }
-//        };
+
 
         AccelListener = new SensorEventListener() {
             @Override
@@ -163,27 +158,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
                     jsonAllAccel.put(jsonAccel);
 
-//                    ClientUDP.sendMessage("  Xa=" + event.values[0] +
-//                            "; Ya=" + event.values[1] +
-//                            "; Za=" + event.values[2] +
-//                            "\n");
-
-                    //checkTimer = true;
-
-
                 }
-
-
-//                current = System.currentTimeMillis();
-//
-//                if (checkTimer) {
-//                    if (current - timer >= 5000) {
-//
-//                        ButtonRecord.callOnClick();
-//                        ButtonRecord.setChecked(false);
-//                        checkTimer = false;
-//                    }
-//                }
 
             }
 
@@ -211,7 +186,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
                     jsonAllGyro.put(jsonGyro);
 
-//                    ClientUDP.sendMessage(  "  Xg=" + event.values[0] +
+//                    aClientUDP.sendMessage(  "  Xg=" + event.values[0] +
 //                            "; Yg=" + event.values[1] +
 //                            "; Zg=" + event.values[2] +
 //                            "\n");
@@ -238,9 +213,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             @Override
             public void onClick(View v) {
 
+                aClientUDP.sendMessage("OOOOOIIIIIII");
                 if (ButtonRecord.isChecked()) {
 
-//                    checkTimer = true;
 
                     try {
                         new Handler().postDelayed(new Runnable() {
@@ -248,7 +223,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                             public void run() {
                                 //Your process to do
 
-                                Log.e("MSG", "I'm Here!!!!");
+                                //Log.e("MSG", "I'm Here!!!!");
                                 try {
 
                                     jsonObject.put("Accel", jsonAllAccel);
@@ -257,7 +232,11 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                                     //writeJSONtoFile(jsonObject);
                                     sendMessage(jsonObject.toString(2));
 
+                                    //reset the JSON objects
+                                    jsonAllAccel = new JSONArray();
+                                    jsonAllGyro = new JSONArray();
                                     jsonObject = new JSONObject();
+
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -266,14 +245,11 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                                 ButtonRecord.setChecked(false);
 
                             }
-                        }, 2000);
+                        }, 1500);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-//                } else {
-//                    //timer.schedule(timerTask, 3000, 1);
-//                }
 
             }
         });
@@ -349,8 +325,6 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     @Override
     public void onConnected(Bundle bundle) {
 
-
-
         Wearable.NodeApi.getConnectedNodes(mGoogleApiClient)
                 .setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
                     @Override
@@ -359,6 +333,11 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                             if (node != null && node.isNearby()) {
                                 mNode = node;
                                 Log.d(WEARABLE_MAIN, "Connected to " + mNode.getDisplayName());
+
+                                String id = mNode.getId();
+                                String name = mNode.getDisplayName();
+
+                                Log.d("WEAR", "Connected peer name & ID: " + name + "|" + id);
                             }
                         }
                         if (mNode == null) {
@@ -384,45 +363,20 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         super.onStart();
         mGoogleApiClient.connect();
 
-//        // ATTENTION: This was auto-generated to implement the App Indexing API.
-//        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        Action viewAction = Action.newAction(
-//                Action.TYPE_VIEW, // TODO: choose an action type.
-//                "Main Page", // TODO: Define a title for the content shown.
-//                // TODO: If you have web page content that matches this app activity's content,
-//                // make sure this auto-generated web page URL is correct.
-//                // Otherwise, set the URL to null.
-//                Uri.parse("http://host/path"),
-//                // TODO: Make sure this auto-generated app deep link URI is correct.
-//                Uri.parse("android-app://com.example.mateus.testweardata/http/host/path")
-//        );
-//        AppIndex.AppIndexApi.start(mGoogleApiClient, viewAction);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        // ATTENTION: This was auto-generated to implement the App Indexing API.
-//        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        Action viewAction = Action.newAction(
-//                Action.TYPE_VIEW, // TODO: choose an action type.
-//                "Main Page", // TODO: Define a title for the content shown.
-//                // TODO: If you have web page content that matches this app activity's content,
-//                // make sure this auto-generated web page URL is correct.
-//                // Otherwise, set the URL to null.
-//                Uri.parse("http://host/path"),
-//                // TODO: Make sure this auto-generated app deep link URI is correct.
-//                Uri.parse("android-app://com.example.mateus.testweardata/http/host/path")
-//        );
-//        AppIndex.AppIndexApi.end(mGoogleApiClient, viewAction);
+
         mGoogleApiClient.disconnect();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        managerAccel.registerListener(AccelListener, sensorAccel, SensorManager.SENSOR_DELAY_UI);
-        managerGyro.registerListener(GyroListener, sensorGyro, SensorManager.SENSOR_DELAY_UI);
+        managerAccel.registerListener(AccelListener, sensorAccel, SensorManager.SENSOR_DELAY_NORMAL);
+        managerGyro.registerListener(GyroListener, sensorGyro, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
